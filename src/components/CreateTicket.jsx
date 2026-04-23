@@ -13,7 +13,11 @@ function CreateTicket({ onCancel, onSubmit, selectedTemplate }) {
       custom: { name: '自定义流程', icon: 'fa-pencil-alt', color: '#64748b' },
       resource_quick: { name: '快速资源申请', icon: 'fa-bolt', color: '#3a86ff' },
       change_standard: { name: '标准变更', icon: 'fa-cogs', color: '#10b981' },
-      security_patch: { name: '安全补丁', icon: 'fa-shield-alt', color: '#ef4444' }
+      security_patch: { name: '安全补丁', icon: 'fa-shield-alt', color: '#ef4444' },
+      head_office_change: { name: '总行基础设施变更流程', icon: 'fa-building', color: '#3a86ff' },
+      branch_change: { name: '分行及子公司基础设施变更流程', icon: 'fa-code-branch', color: '#10b981' },
+      routine_change: { name: '场景化变更模板管理流程', icon: 'fa-calendar-check', color: '#f59e0b' },
+      asset_inbound: { name: '标准变更模板管理流程', icon: 'fa-boxes-stacked', color: '#8b5cf6' }
     }
     return templates[templateId] || { name: '通用工单', icon: 'fa-ticket-alt', color: '#3a86ff' }
   }
@@ -42,7 +46,11 @@ function CreateTicket({ onCancel, onSubmit, selectedTemplate }) {
         custom: { priority: 'medium', urgency: 'normal' },
         resource_quick: { priority: 'medium', urgency: 'fast' },
         change_standard: { priority: 'high', urgency: 'normal' },
-        security_patch: { priority: 'urgent', urgency: 'immediate' }
+        security_patch: { priority: 'urgent', urgency: 'immediate' },
+        head_office_change: { priority: 'high', urgency: 'fast' },
+        branch_change: { priority: 'medium', urgency: 'normal' },
+        routine_change: { priority: 'medium', urgency: 'normal' },
+        asset_inbound: { priority: 'medium', urgency: 'normal' }
       }
       
       const defaults = templateDefaults[selectedTemplate] || templateDefaults.resource

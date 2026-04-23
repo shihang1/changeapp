@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 
 function TemplateSelect({ onSelectTemplate, onBack }) {
   const allTemplates = [
@@ -36,9 +36,12 @@ function TemplateSelect({ onSelectTemplate, onBack }) {
     }
   ]
 
-  const filteredTemplates = allTemplates
-
-
+  const [searchTerm, setSearchTerm] = useState('')
+  
+  const filteredTemplates = allTemplates.filter(template =>
+    template.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+    template.description.toLowerCase().includes(searchTerm.toLowerCase())
+  )
 
   return (
     <div className="template-select-container">
@@ -53,7 +56,17 @@ function TemplateSelect({ onSelectTemplate, onBack }) {
       </div>
 
       <div className="template-content">
-        {/* 搜索栏已移除 */}
+        <div className="search-header">
+          <div className="search-box">
+            <i className="fas fa-search"></i>
+            <input
+              type="text"
+              placeholder="搜索模板名称或描述..."
+              value={searchTerm}
+              onChange={(e) => setSearchTerm(e.target.value)}
+            />
+          </div>
+        </div>
 
         {filteredTemplates.length === 0 ? (
           <div className="no-templates-message">

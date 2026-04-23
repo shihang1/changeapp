@@ -50,7 +50,7 @@ function App() {
       case 'home':
         return (
           <div className="welcome-container">
-            <WelcomePage onNewClick={handleNewClick} />
+            <MyFavorites onNewClick={handleNewClick} />
           </div>
         )
       case 'workCalendar':

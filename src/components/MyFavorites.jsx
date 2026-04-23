@@ -1,9 +1,14 @@
 import React from 'react'
 
-function MyFavorites() {
+function MyFavorites({ onNewClick }) {
   // 重新设计首页布局
   const mainTitle = "欢迎来到变更管理系统";
   const subTitle = "快速访问您最常用的功能和流程";
+  
+  const handleOpenFavorite = (cardId) => {
+    alert(`打开收藏卡片 ID: ${cardId}`);
+    // 实际应用中这里会有打开变更详情的逻辑
+  };
   
   const quickActions = [
     {
@@ -11,28 +16,32 @@ function MyFavorites() {
       title: '创建新变更',
       icon: 'fa-plus-circle',
       color: '#3a86ff',
-      description: '开始新的变更流程'
+      description: '开始新的变更流程',
+      onClick: () => onNewClick && onNewClick()
     },
     {
       id: 2,
       title: '我的待办',
       icon: 'fa-tasks',
       color: '#10b981',
-      description: '查看待处理任务'
+      description: '查看待处理任务',
+      onClick: () => alert('导航到我的待办页面')
     },
     {
       id: 3,
       title: '流程模板',
       icon: 'fa-th-large',
       color: '#f59e0b',
-      description: '选择变更模板'
+      description: '选择变更模板',
+      onClick: () => alert('导航到流程模板页面')
     },
     {
       id: 4,
       title: '统计报表',
       icon: 'fa-chart-bar',
       color: '#8b5cf6',
-      description: '查看变更统计'
+      description: '查看变更统计',
+      onClick: () => alert('导航到统计报表页面')
     }
   ];
 
@@ -155,7 +164,7 @@ function MyFavorites() {
                 <h3 className="action-title">{action.title}</h3>
                 <p className="action-desc">{action.description}</p>
               </div>
-              <button className="action-btn">进入</button>
+              <button className="action-btn" onClick={action.onClick}>进入</button>
             </div>
           ))}
         </div>
@@ -186,7 +195,7 @@ function MyFavorites() {
                   <span className="favorite-date">
                     <i className="far fa-clock"></i> 收藏于 {card.favoriteDate}
                   </span>
-                  <button className="open-btn">打开</button>
+                  <button className="open-btn" onClick={() => handleOpenFavorite(card.id)}>打开</button>
                 </div>
               </div>
             ))}
