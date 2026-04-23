@@ -1,4 +1,5 @@
 import React, { useState } from 'react'
+import ReactECharts from 'echarts-for-react'
 
 function MyParticipation() {
   const [sortBy, setSortBy] = useState('date')
@@ -87,6 +88,101 @@ function MyParticipation() {
     return 0
   })
 
+  // 贡献统计图表数据
+  const contributionChartOption = {
+    title: {
+      text: '每月完成工单数',
+      left: 'center',
+      textStyle: {
+        fontSize: 16,
+        fontWeight: 'normal'
+      }
+    },
+    tooltip: {
+      trigger: 'axis',
+      formatter: '{b}<br/>{c} 个工单'
+    },
+    xAxis: {
+      type: 'category',
+      data: ['1月', '2月', '3月', '4月', '5月', '6月', '7月', '8月', '9月', '10月', '11月', '12月'],
+      axisLabel: {
+        rotate: 45
+      }
+    },
+    yAxis: {
+      type: 'value',
+      name: '工单数'
+    },
+    series: [
+      {
+        name: '完成工单',
+        type: 'bar',
+        data: [12, 15, 8, 10, 14, 18, 22, 20, 16, 12, 9, 7],
+        itemStyle: {
+          color: '#3a86ff'
+        },
+        barWidth: '60%'
+      }
+    ],
+    grid: {
+      left: '60px',
+      right: '40px',
+      bottom: '60px',
+      top: '60px'
+    }
+  }
+
+  // 参与时间线图表数据
+  const timelineChartOption = {
+    title: {
+      text: '最近参与活动',
+      left: 'center',
+      textStyle: {
+        fontSize: 16,
+        fontWeight: 'normal'
+      }
+    },
+    tooltip: {
+      trigger: 'axis',
+      formatter: function(params) {
+        const param = params[0]
+        return `${param.axisValue}<br/>${param.marker} ${param.seriesName}: ${param.value} 次`
+      }
+    },
+    xAxis: {
+      type: 'category',
+      data: ['4/15', '4/16', '4/17', '4/18', '4/19', '4/20', '4/21', '4/22', '4/23'],
+      axisLabel: {
+        rotate: 45
+      }
+    },
+    yAxis: {
+      type: 'value',
+      name: '参与次数'
+    },
+    series: [
+      {
+        name: '参与活动',
+        type: 'line',
+        data: [3, 5, 2, 6, 4, 7, 5, 8, 6],
+        itemStyle: {
+          color: '#ff6b6b'
+        },
+        lineStyle: {
+          width: 3
+        },
+        symbolSize: 8,
+        smooth: true
+      }
+    ],
+    grid: {
+      left: '60px',
+      right: '40px',
+      bottom: '60px',
+      top: '60px'
+    }
+  }
+
   return (
     <div className="participation-container">
       <div className="participation-header">
@@ -117,6 +213,24 @@ function MyParticipation() {
         <div className="stat-box">
           <div className="stat-value">{participatedTickets.filter(t => t.status === 'completed').length}</div>
           <div className="stat-label">已完成</div>
+        </div>
+      </div>
+
+      {/* 新增图表：贡献统计和参与时间线 */}
+      <div className="chart-row">
+        <div className="chart-section" style={{ flex: 1 }}>
+          <div className="section-title">
+            <span className="title-bar" style={{ backgroundColor: '#3a86ff' }}></span>
+            <h3>每月完成工单统计</h3>
+          </div>
+          <ReactECharts option={contributionChartOption} style={{ height: 300 }} />
+        </div>
+        <div className="chart-section" style={{ flex: 1 }}>
+          <div className="section-title">
+            <span className="title-bar" style={{ backgroundColor: '#ff6b6b' }}></span>
+            <h3>最近参与活动趋势</h3>
+          </div>
+          <ReactECharts option={timelineChartOption} style={{ height: 300 }} />
         </div>
       </div>
 

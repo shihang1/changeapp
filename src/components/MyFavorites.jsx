@@ -1,6 +1,41 @@
 import React from 'react'
 
 function MyFavorites() {
+  // 重新设计首页布局
+  const mainTitle = "欢迎来到变更管理系统";
+  const subTitle = "快速访问您最常用的功能和流程";
+  
+  const quickActions = [
+    {
+      id: 1,
+      title: '创建新变更',
+      icon: 'fa-plus-circle',
+      color: '#3a86ff',
+      description: '开始新的变更流程'
+    },
+    {
+      id: 2,
+      title: '我的待办',
+      icon: 'fa-tasks',
+      color: '#10b981',
+      description: '查看待处理任务'
+    },
+    {
+      id: 3,
+      title: '流程模板',
+      icon: 'fa-th-large',
+      color: '#f59e0b',
+      description: '选择变更模板'
+    },
+    {
+      id: 4,
+      title: '统计报表',
+      icon: 'fa-chart-bar',
+      color: '#8b5cf6',
+      description: '查看变更统计'
+    }
+  ];
+
   const favoriteCards = [
     {
       id: 1,
@@ -30,7 +65,7 @@ function MyFavorites() {
       id: 4,
       title: '总行基础设施变更流程',
       category: 'security',
-      description: '用于实施设备维护、环境部署、网络调整等基础设施变更...',
+      description: '用于实施设备维护、环境部署、网络调整、应用系统运维、数据提取等基础设施变更，实现对该类变更的制定、审核、预审、评审、审批、实施、反馈、关闭等操作',
       favoriteDate: '2026-04-05',
       icon: 'fa-server'
     },
@@ -38,7 +73,7 @@ function MyFavorites() {
       id: 5,
       title: '分行及子公司基础设施变更流程',
       category: 'security',
-      description: '用于实施设备维护、网络调整、分行系统运维、数据提取等...',
+      description: '用于实施设备维护、网络调整、分行系统运维、数据提取等基础设施变更，实现对该类变更的制定、审批、报备、实施、反馈、关闭等操作',
       favoriteDate: '2026-04-08',
       icon: 'fa-building'
     },
@@ -101,35 +136,62 @@ function MyFavorites() {
   ]
 
   return (
-    <div className="favorites-container">
-      <div className="favorites-header">
-        <h2>我的收藏</h2>
-        <span className="favorites-count">{favoriteCards.length} 个收藏项</span>
-      </div>
+    <div className="centered-homepage">
+      {/* 中心内容区域 */}
+      <div className="homepage-center">
+        <div className="welcome-section">
+          <h1 className="main-title">{mainTitle}</h1>
+          <p className="sub-title">{subTitle}</p>
+        </div>
 
-      <div className="favorites-grid">
-        {favoriteCards.map(card => (
-          <div key={card.id} className="favorite-card">
-            <div className="favorite-card-header">
-              <div className="favorite-card-icon">
-                <i className={`fas ${card.icon}`}></i>
+        {/* 快速操作卡片 */}
+        <div className="quick-actions-grid">
+          {quickActions.map(action => (
+            <div key={action.id} className="quick-action-card">
+              <div className="action-icon" style={{ backgroundColor: action.color }}>
+                <i className={`fas ${action.icon}`}></i>
               </div>
-              <button className="unfavorite-btn" title="取消收藏">
-                <i className="fas fa-star active"></i>
-              </button>
+              <div className="action-content">
+                <h3 className="action-title">{action.title}</h3>
+                <p className="action-desc">{action.description}</p>
+              </div>
+              <button className="action-btn">进入</button>
             </div>
-            <div className="favorite-card-body">
-              <h3 className="favorite-card-title">{card.title}</h3>
-              <p className="favorite-card-desc">{card.description}</p>
-            </div>
-            <div className="favorite-card-footer">
-              <span className="favorite-date">
-                <i className="far fa-clock"></i> 收藏于 {card.favoriteDate}
-              </span>
-              <button className="open-btn">打开</button>
-            </div>
+          ))}
+        </div>
+
+        {/* 收藏区域 */}
+        <div className="favorites-section">
+          <div className="section-header">
+            <h2>我的收藏</h2>
+            <span className="favorites-count">{favoriteCards.length} 个收藏项</span>
           </div>
-        ))}
+
+          <div className="favorites-grid">
+            {favoriteCards.slice(0, 4).map(card => (
+              <div key={card.id} className="favorite-card">
+                <div className="favorite-card-header">
+                  <div className="favorite-card-icon">
+                    <i className={`fas ${card.icon}`}></i>
+                  </div>
+                  <button className="unfavorite-btn" title="取消收藏">
+                    <i className="fas fa-star active"></i>
+                  </button>
+                </div>
+                <div className="favorite-card-body">
+                  <h3 className="favorite-card-title">{card.title}</h3>
+                  <p className="favorite-card-desc">{card.description}</p>
+                </div>
+                <div className="favorite-card-footer">
+                  <span className="favorite-date">
+                    <i className="far fa-clock"></i> 收藏于 {card.favoriteDate}
+                  </span>
+                  <button className="open-btn">打开</button>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
       </div>
     </div>
   )

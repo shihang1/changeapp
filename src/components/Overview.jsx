@@ -196,6 +196,129 @@ function Overview() {
     { id: 4, title: '工单搜索', icon: 'fa-search', color: '#f59e0b', description: '快速搜索工单' }
   ]
 
+  // 工单热力图数据（按周和天）
+  const heatmapChartOption = {
+    tooltip: {
+      position: 'top',
+      formatter: function (params) {
+        return '工单数量: ' + params.value[2] + '<br>' + params.value[0] + ' ' + params.value[1];
+      }
+    },
+    grid: {
+      top: 40,
+      left: 60,
+      right: 40,
+      bottom: 40
+    },
+    xAxis: {
+      type: 'category',
+      data: ['周一', '周二', '周三', '周四', '周五', '周六', '周日'],
+      splitArea: { show: true }
+    },
+    yAxis: {
+      type: 'category',
+      data: ['第1周', '第2周', '第3周', '第4周', '第5周'],
+      splitArea: { show: true }
+    },
+    visualMap: {
+      min: 0,
+      max: 20,
+      calculable: true,
+      orient: 'horizontal',
+      left: 'center',
+      bottom: 0,
+      inRange: {
+        color: ['#e6f7ff', '#1890ff', '#0050b3']
+      }
+    },
+    series: [{
+      name: '工单数量',
+      type: 'heatmap',
+      data: [
+        [0, 0, 5], [1, 0, 7], [2, 0, 12], [3, 0, 9], [4, 0, 15], [5, 0, 3], [6, 0, 1],
+        [0, 1, 8], [1, 1, 10], [2, 1, 14], [3, 1, 11], [4, 1, 18], [5, 1, 4], [6, 1, 2],
+        [0, 2, 6], [1, 2, 9], [2, 2, 13], [3, 2, 10], [4, 2, 16], [5, 2, 5], [6, 2, 3],
+        [0, 3, 7], [1, 3, 11], [2, 3, 15], [3, 3, 12], [4, 3, 20], [5, 3, 6], [6, 3, 4],
+        [0, 4, 4], [1, 4, 6], [2, 4, 10], [3, 4, 8], [4, 4, 12], [5, 4, 2], [6, 4, 1]
+      ],
+      label: { show: true },
+      emphasis: {
+        itemStyle: {
+          shadowBlur: 10,
+          shadowColor: 'rgba(0, 0, 0, 0.5)'
+        }
+      }
+    }]
+  }
+
+  // 团队效率指标
+  const efficiencyChartOption = {
+    tooltip: {
+      trigger: 'axis',
+      axisPointer: { type: 'shadow' }
+    },
+    legend: {
+      data: ['平均响应时间', '平均解决时间', 'SLA达成率'],
+      top: 10
+    },
+    grid: {
+      left: '3%',
+      right: '4%',
+      top: '15%',
+      bottom: '3%',
+      containLabel: true
+    },
+    xAxis: {
+      type: 'category',
+      data: ['4月15日', '4月16日', '4月17日', '4月18日', '4月19日', '4月20日', '4月21日']
+    },
+    yAxis: [
+      {
+        type: 'value',
+        name: '时间（小时）',
+        position: 'left',
+        axisLine: { show: true },
+        axisLabel: { formatter: '{value}h' }
+      },
+      {
+        type: 'value',
+        name: '达成率（%）',
+        position: 'right',
+        min: 0,
+        max: 100,
+        axisLine: { show: true },
+        axisLabel: { formatter: '{value}%' }
+      }
+    ],
+    series: [
+      {
+        name: '平均响应时间',
+        type: 'line',
+        smooth: true,
+        data: [2.1, 1.8, 2.3, 1.9, 2.0, 1.7, 1.5],
+        lineStyle: { color: '#3a86ff' },
+        symbol: 'circle',
+        symbolSize: 6
+      },
+      {
+        name: '平均解决时间',
+        type: 'line',
+        smooth: true,
+        data: [8.5, 7.2, 9.0, 7.8, 8.2, 6.9, 6.5],
+        lineStyle: { color: '#10b981' },
+        symbol: 'circle',
+        symbolSize: 6
+      },
+      {
+        name: 'SLA达成率',
+        type: 'bar',
+        yAxisIndex: 1,
+        data: [92, 95, 89, 94, 93, 96, 98],
+        itemStyle: { color: '#f59e0b' }
+      }
+    ]
+  }
+
   return (
     <div className="overview-container">
       {/* 顶部标题区域 */}
@@ -255,6 +378,25 @@ function Overview() {
               <h3>工单类型分布</h3>
             </div>
             <ReactECharts option={typeChartOption} style={{ height: 260 }} />
+          </div>
+        </div>
+
+        {/* 新增图表：热力图和团队效率 */}
+        <div className="chart-row">
+          <div className="chart-section" style={{ flex: 1 }}>
+            <div className="section-title">
+              <span className="title-bar" style={{ backgroundColor: '#ff6b6b' }}></span>
+              <h3>工单分布热力图</h3>
+            </div>
+            <ReactECharts option={heatmapChartOption} style={{ height: 300 }} />
+          </div>
+
+          <div className="chart-section" style={{ flex: 1 }}>
+            <div className="section-title">
+              <span className="title-bar" style={{ backgroundColor: '#4ecdc4' }}></span>
+              <h3>团队效率指标</h3>
+            </div>
+            <ReactECharts option={efficiencyChartOption} style={{ height: 300 }} />
           </div>
         </div>
       </div>

@@ -14,20 +14,35 @@ import Drafts from './components/Drafts'
 import AllTickets from './components/AllTickets'
 import ArchivedTickets from './components/ArchivedTickets'
 import ChangeReport from './components/ChangeReport'
+import CreateTicket from './components/CreateTicket'
+import TemplateSelect from './components/TemplateSelect'
 
 function App() {
   const [activeNav, setActiveNav] = useState('home')
+  const [selectedTemplate, setSelectedTemplate] = useState(null)
 
   const handleNavClick = (nav) => {
     if (nav === 'home') {
       setActiveNav('home')
+      setSelectedTemplate(null)
     } else {
       setActiveNav(nav)
     }
   }
 
   const handleNewClick = () => {
-    alert('新建工单功能')
+    setActiveNav('templateSelect')
+    setSelectedTemplate(null)
+  }
+
+  const handleSelectTemplate = (templateId) => {
+    setSelectedTemplate(templateId)
+    setActiveNav('createTicket')
+  }
+
+  const handleCancelCreate = () => {
+    setActiveNav('templateSelect')
+    setSelectedTemplate(null)
   }
 
   const renderContent = () => {
@@ -62,6 +77,21 @@ function App() {
         return <ArchivedTickets />
       case 'drafts':
         return <Drafts />
+      case 'templateSelect':
+        return <TemplateSelect 
+          onSelectTemplate={handleSelectTemplate}
+          onBack={() => setActiveNav('home')}
+        />
+      case 'createTicket':
+        return <CreateTicket 
+          onCancel={handleCancelCreate}
+          onSubmit={(data) => {
+            alert(`工单创建成功: ${data.title}`)
+            setActiveNav('home')
+            setSelectedTemplate(null)
+          }}
+          selectedTemplate={selectedTemplate}
+        />
       default:
         return <CardsGrid pageType={activeNav} pageTitle={getNavTitle(activeNav)} onTitleChange={() => {}} />
     }

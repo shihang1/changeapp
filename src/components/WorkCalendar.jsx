@@ -331,10 +331,7 @@ function WorkCalendar() {
   return (
     <div className={`calendar-container ${isEditMode ? 'edit-mode' : ''}`}>
       <div className="calendar-wrapper-inner" id="main-container">
-        <div className="calendar-header">
-          <h1>变更管理日历</h1>
-          <p className="subtitle">特殊工作日设置 | 编辑模式 | 调休标记</p>
-        </div>
+
 
         <div className="calendar-controls">
           <div className="date-selector">
