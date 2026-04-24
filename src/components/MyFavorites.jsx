@@ -71,6 +71,7 @@ function MyFavorites({ onNewClick }) {
       id: 1,
       ticketNumber: 'CHG-20260424-001',
       title: '总行服务器硬件升级',
+      modelName: '标准变更流程',
       priority: '高',
       currentStage: '实施阶段',
       currentHandler: '张三',
@@ -83,6 +84,7 @@ function MyFavorites({ onNewClick }) {
       id: 2,
       ticketNumber: 'INC-20260424-002',
       title: '数据库连接故障',
+      modelName: '故障处理流程',
       priority: '紧急',
       currentStage: '处理中',
       currentHandler: '李四',
@@ -95,6 +97,7 @@ function MyFavorites({ onNewClick }) {
       id: 3,
       ticketNumber: 'REQ-20260424-003',
       title: '新增虚拟机申请',
+      modelName: '资源申请流程',
       priority: '中',
       currentStage: '审批阶段',
       currentHandler: '王五',
@@ -107,6 +110,7 @@ function MyFavorites({ onNewClick }) {
       id: 4,
       ticketNumber: 'CHG-20260423-004',
       title: '网络设备配置变更',
+      modelName: '网络变更流程',
       priority: '高',
       currentStage: '预审阶段',
       currentHandler: '赵六',
@@ -119,6 +123,7 @@ function MyFavorites({ onNewClick }) {
       id: 5,
       ticketNumber: 'TASK-20260423-005',
       title: '系统备份任务',
+      modelName: '系统任务流程',
       priority: '低',
       currentStage: '已完成',
       currentHandler: '钱七',
@@ -131,6 +136,7 @@ function MyFavorites({ onNewClick }) {
       id: 6,
       ticketNumber: 'PROB-20260422-006',
       title: '应用性能问题分析',
+      modelName: '问题分析流程',
       priority: '中',
       currentStage: '调查阶段',
       currentHandler: '孙八',
@@ -143,6 +149,7 @@ function MyFavorites({ onNewClick }) {
       id: 7,
       ticketNumber: 'SEC-20260421-007',
       title: '安全漏洞修复',
+      modelName: '安全修复流程',
       priority: '紧急',
       currentStage: '修复阶段',
       currentHandler: '周九',
@@ -155,6 +162,7 @@ function MyFavorites({ onNewClick }) {
       id: 8,
       ticketNumber: 'REL-20260420-008',
       title: '版本发布管理',
+      modelName: '版本发布流程',
       priority: '高',
       currentStage: '测试阶段',
       currentHandler: '吴十',
@@ -207,6 +215,7 @@ function MyFavorites({ onNewClick }) {
                 <tr>
                   <th>工单编号</th>
                   <th>工单名称</th>
+                  <th>模型名称</th>
                   <th>工单优先级</th>
                   <th>当前环节</th>
                   <th>当前处理人</th>
@@ -220,6 +229,7 @@ function MyFavorites({ onNewClick }) {
                   <tr key={card.id}>
                     <td className="ticket-id-cell">{card.ticketNumber}</td>
                     <td className="ticket-title-cell">{card.title}</td>
+                    <td>{card.modelName}</td>
                     <td>
                       <span className={`priority-badge priority-${getPriorityClass(card.priority)}`}>
                         {card.priority}
