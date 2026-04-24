@@ -45,102 +45,123 @@ function MyFavorites({ onNewClick }) {
     }
   ];
 
+  // 辅助函数：将优先级映射为 CSS 类名
+  const getPriorityClass = (priority) => {
+    switch (priority) {
+      case '紧急': return 'urgent';
+      case '高': return 'high';
+      case '中': return 'medium';
+      case '低': return 'low';
+      default: return 'medium';
+    }
+  };
+
+  // 辅助函数：将状态映射为 CSS 类名
+  const getStatusClass = (status) => {
+    if (status.includes('进行中') || status.includes('处理中') || status.includes('修复中') || status.includes('调查中')) return 'in-progress';
+    if (status.includes('待审批') || status.includes('预审中')) return 'pending';
+    if (status.includes('已完成') || status.includes('已完成')) return 'completed';
+    if (status.includes('测试中')) return 'reviewing';
+    if (status.includes('实施阶段')) return 'execution';
+    return 'pending';
+  };
+
   const favoriteCards = [
     {
       id: 1,
-      title: '资产入库流程',
-      category: 'resource',
-      description: '资产入库的标准流程',
-      favoriteDate: '2026-03-15',
-      icon: 'fa-boxes-stacked'
+      ticketNumber: 'CHG-20260424-001',
+      title: '总行服务器硬件升级',
+      priority: '高',
+      currentStage: '实施阶段',
+      currentHandler: '张三',
+      createdTime: '2026-04-24 09:30',
+      status: '进行中',
+      category: 'change',
+      favoriteDate: '2026-04-24'
     },
     {
       id: 2,
-      title: '测试1',
-      category: 'task',
-      description: '测试工单1',
-      favoriteDate: '2026-03-18',
-      icon: 'fa-vial'
+      ticketNumber: 'INC-20260424-002',
+      title: '数据库连接故障',
+      priority: '紧急',
+      currentStage: '处理中',
+      currentHandler: '李四',
+      createdTime: '2026-04-24 10:15',
+      status: '处理中',
+      category: 'incident',
+      favoriteDate: '2026-04-24'
     },
     {
       id: 3,
-      title: 'IM-HQ-20260415-0002_故障',
-      category: 'security',
-      description: '故障处理工单',
-      favoriteDate: '2026-04-01',
-      icon: 'fa-bug'
+      ticketNumber: 'REQ-20260424-003',
+      title: '新增虚拟机申请',
+      priority: '中',
+      currentStage: '审批阶段',
+      currentHandler: '王五',
+      createdTime: '2026-04-24 11:20',
+      status: '待审批',
+      category: 'resource',
+      favoriteDate: '2026-04-24'
     },
     {
       id: 4,
-      title: '总行基础设施变更流程',
-      category: 'security',
-      description: '用于实施设备维护、环境部署、网络调整、应用系统运维、数据提取等基础设施变更，实现对该类变更的制定、审核、预审、评审、审批、实施、反馈、关闭等操作',
-      favoriteDate: '2026-04-05',
-      icon: 'fa-server'
+      ticketNumber: 'CHG-20260423-004',
+      title: '网络设备配置变更',
+      priority: '高',
+      currentStage: '预审阶段',
+      currentHandler: '赵六',
+      createdTime: '2026-04-23 14:45',
+      status: '预审中',
+      category: 'change',
+      favoriteDate: '2026-04-23'
     },
     {
       id: 5,
-      title: '分行及子公司基础设施变更流程',
-      category: 'security',
-      description: '用于实施设备维护、网络调整、分行系统运维、数据提取等基础设施变更，实现对该类变更的制定、审批、报备、实施、反馈、关闭等操作',
-      favoriteDate: '2026-04-08',
-      icon: 'fa-building'
+      ticketNumber: 'TASK-20260423-005',
+      title: '系统备份任务',
+      priority: '低',
+      currentStage: '已完成',
+      currentHandler: '钱七',
+      createdTime: '2026-04-23 16:30',
+      status: '已完成',
+      category: 'task',
+      favoriteDate: '2026-04-23'
     },
     {
       id: 6,
-      title: '部署方案生成',
-      category: 'resource',
-      description: '生成部署方案',
-      favoriteDate: '2026-04-10',
-      icon: 'fa-file-code'
+      ticketNumber: 'PROB-20260422-006',
+      title: '应用性能问题分析',
+      priority: '中',
+      currentStage: '调查阶段',
+      currentHandler: '孙八',
+      createdTime: '2026-04-22 09:10',
+      status: '调查中',
+      category: 'problem',
+      favoriteDate: '2026-04-22'
     },
     {
       id: 7,
-      title: '例行变更-预审流程',
-      category: 'changesence',
-      description: '例行变更预审流程',
-      favoriteDate: '2026-04-12',
-      icon: 'fa-calendar-check'
+      ticketNumber: 'SEC-20260421-007',
+      title: '安全漏洞修复',
+      priority: '紧急',
+      currentStage: '修复阶段',
+      currentHandler: '周九',
+      createdTime: '2026-04-21 13:25',
+      status: '修复中',
+      category: 'security',
+      favoriteDate: '2026-04-21'
     },
     {
       id: 8,
-      title: '例行变更',
-      category: 'changesence',
-      description: '例行变更流程',
-      favoriteDate: '2026-04-13',
-      icon: 'fa-sync-alt'
-    },
-    {
-      id: 9,
-      title: '场景化变更模板管理流程',
-      category: 'security',
-      description: '用于对变更场景化模板进行日常管理的流程...',
-      favoriteDate: '2026-04-15',
-      icon: 'fa-th-large'
-    },
-    {
-      id: 10,
-      title: '标准变更模板管理流程',
-      category: 'security',
-      description: '用于对标准变更进行日常管理的流程...',
-      favoriteDate: '2026-04-16',
-      icon: 'fa-list-check'
-    },
-    {
-      id: 11,
-      title: '容器实例申请',
-      category: 'resource',
-      description: '容器实例申请',
-      favoriteDate: '2026-04-18',
-      icon: 'fa-docker'
-    },
-    {
-      id: 12,
-      title: '变更告警维护期自服务',
-      category: 'changesence',
-      description: '变更告警维护',
-      favoriteDate: '2026-04-19',
-      icon: 'fa-bell'
+      ticketNumber: 'REL-20260420-008',
+      title: '版本发布管理',
+      priority: '高',
+      currentStage: '测试阶段',
+      currentHandler: '吴十',
+      createdTime: '2026-04-20 15:40',
+      status: '测试中',
+      category: 'release',
+      favoriteDate: '2026-04-20'
     }
   ]
 
@@ -148,26 +169,30 @@ function MyFavorites({ onNewClick }) {
     <div className="centered-homepage">
       {/* 中心内容区域 */}
       <div className="homepage-center">
-        <div className="welcome-section">
-          <h1 className="main-title">{mainTitle}</h1>
-          <p className="sub-title">{subTitle}</p>
-        </div>
-
-        {/* 快速操作卡片 */}
-        <div className="quick-actions-grid">
-          {quickActions.map(action => (
-            <div key={action.id} className="quick-action-card">
-              <div className="action-icon" style={{ backgroundColor: action.color }}>
-                <i className={`fas ${action.icon}`}></i>
-              </div>
-              <div className="action-content">
-                <h3 className="action-title">{action.title}</h3>
-                <p className="action-desc">{action.description}</p>
-              </div>
-              <button className="action-btn" onClick={action.onClick}>进入</button>
+        {onNewClick && (
+          <>
+            <div className="welcome-section">
+              <h1 className="main-title">{mainTitle}</h1>
+              <p className="sub-title">{subTitle}</p>
             </div>
-          ))}
-        </div>
+
+            {/* 快速操作卡片 */}
+            <div className="quick-actions-grid">
+              {quickActions.map(action => (
+                <div key={action.id} className="quick-action-card">
+                  <div className="action-icon" style={{ backgroundColor: action.color }}>
+                    <i className={`fas ${action.icon}`}></i>
+                  </div>
+                  <div className="action-content">
+                    <h3 className="action-title">{action.title}</h3>
+                    <p className="action-desc">{action.description}</p>
+                  </div>
+                  <button className="action-btn" onClick={action.onClick}>进入</button>
+                </div>
+              ))}
+            </div>
+          </>
+        )}
 
         {/* 收藏区域 */}
         <div className="favorites-section">
@@ -176,29 +201,45 @@ function MyFavorites({ onNewClick }) {
             <span className="favorites-count">{favoriteCards.length} 个收藏项</span>
           </div>
 
-          <div className="favorites-grid">
-            {favoriteCards.slice(0, 4).map(card => (
-              <div key={card.id} className="favorite-card">
-                <div className="favorite-card-header">
-                  <div className="favorite-card-icon">
-                    <i className={`fas ${card.icon}`}></i>
-                  </div>
-                  <button className="unfavorite-btn" title="取消收藏">
-                    <i className="fas fa-star active"></i>
-                  </button>
-                </div>
-                <div className="favorite-card-body">
-                  <h3 className="favorite-card-title">{card.title}</h3>
-                  <p className="favorite-card-desc">{card.description}</p>
-                </div>
-                <div className="favorite-card-footer">
-                  <span className="favorite-date">
-                    <i className="far fa-clock"></i> 收藏于 {card.favoriteDate}
-                  </span>
-                  <button className="open-btn" onClick={() => handleOpenFavorite(card.id)}>打开</button>
-                </div>
-              </div>
-            ))}
+          <div className="tickets-table-wrapper">
+            <table className="tickets-table">
+              <thead>
+                <tr>
+                  <th>工单编号</th>
+                  <th>工单名称</th>
+                  <th>工单优先级</th>
+                  <th>当前环节</th>
+                  <th>当前处理人</th>
+                  <th>创建时间</th>
+                  <th>工单状态</th>
+                  <th>操作</th>
+                </tr>
+              </thead>
+              <tbody>
+                {(onNewClick ? favoriteCards.slice(0, 4) : favoriteCards).map(card => (
+                  <tr key={card.id}>
+                    <td className="ticket-id-cell">{card.ticketNumber}</td>
+                    <td className="ticket-title-cell">{card.title}</td>
+                    <td>
+                      <span className={`priority-badge priority-${getPriorityClass(card.priority)}`}>
+                        {card.priority}
+                      </span>
+                    </td>
+                    <td>{card.currentStage}</td>
+                    <td>{card.currentHandler}</td>
+                    <td>{card.createdTime}</td>
+                    <td>
+                      <span className={`status-badge status-${getStatusClass(card.status)}`}>
+                        {card.status}
+                      </span>
+                    </td>
+                    <td>
+                      <button className="action-btn view-btn" onClick={() => handleOpenFavorite(card.id)}>打开</button>
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
           </div>
         </div>
       </div>

@@ -3862,3 +3862,55 @@ body {
         padding: 24px;
     }
 }
+
+/* 我的收藏表格样式 */
+.favorites-section .tickets-table-wrapper {
+  overflow-x: auto;
+  flex: 1;
+  min-height: 0;
+  background: white;
+  border-radius: 10px;
+  border: 1px solid #eef0f3;
+  margin-top: 20px;
+}
+
+.favorites-section .tickets-table {
+  width: 100%;
+  border-collapse: collapse;
+  min-width: 1000px;
+}
+
+.favorites-section .tickets-table th {
+  padding: 12px 16px;
+  text-align: left;
+  background-color: #f8f9fb;
+  font-size: 13px;
+  font-weight: 600;
+  color: #4a5568;
+  border-bottom: 1px solid #eef0f3;
+  white-space: nowrap;
+}
+
+.favorites-section .tickets-table td {
+  padding: 12px 16px;
+  font-size: 14px;
+  border-bottom: 1px solid #f3f4f6;
+  vertical-align: middle;
+}
+
+.favorites-section .tickets-table tbody tr:hover {
+  background-color: #fafbfd;
+}
+
+.favorites-section .ticket-id-cell {
+  color: #3a86ff;
+  font-weight: 600;
+  font-size: 13px;
+}
+
+.favorites-section .ticket-title-cell {
+  font-weight: 500;
+  color: #2c3e50;
+  max-width: 200px;
+  white-space: normal;
+}
