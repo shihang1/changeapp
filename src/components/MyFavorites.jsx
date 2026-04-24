@@ -209,47 +209,51 @@ function MyFavorites({ onNewClick }) {
             <span className="favorites-count">{favoriteCards.length} 个收藏项</span>
           </div>
 
-          <div className="tickets-table-wrapper">
-            <table className="tickets-table">
-              <thead>
-                <tr>
-                  <th>工单编号</th>
-                  <th>工单名称</th>
-                  <th>模型名称</th>
-                  <th>工单优先级</th>
-                  <th>当前环节</th>
-                  <th>当前处理人</th>
-                  <th>创建时间</th>
-                  <th>工单状态</th>
-                  <th>操作</th>
-                </tr>
-              </thead>
-              <tbody>
-                {(onNewClick ? favoriteCards.slice(0, 4) : favoriteCards).map(card => (
-                  <tr key={card.id}>
-                    <td className="ticket-id-cell">{card.ticketNumber}</td>
-                    <td className="ticket-title-cell">{card.title}</td>
-                    <td>{card.modelName}</td>
-                    <td>
-                      <span className={`priority-badge priority-${getPriorityClass(card.priority)}`}>
-                        {card.priority}
-                      </span>
-                    </td>
-                    <td>{card.currentStage}</td>
-                    <td>{card.currentHandler}</td>
-                    <td>{card.createdTime}</td>
-                    <td>
-                      <span className={`status-badge status-${getStatusClass(card.status)}`}>
-                        {card.status}
-                      </span>
-                    </td>
-                    <td>
-                      <button className="action-btn view-btn" onClick={() => handleOpenFavorite(card.id)}>打开</button>
-                    </td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
+          <div className="favorites-form-list">
+            {(onNewClick ? favoriteCards.slice(0, 4) : favoriteCards).map(card => (
+              <div key={card.id} className="favorite-form-item">
+                <div className="form-item-header">
+                  <div className="form-item-title">
+                    <span className="ticket-id">{card.ticketNumber}</span>
+                    <h3 className="ticket-title">{card.title}</h3>
+                  </div>
+                  <div className="form-item-actions">
+                    <button className="action-btn view-btn" onClick={() => handleOpenFavorite(card.id)}>打开</button>
+                  </div>
+                </div>
+                
+                <div className="form-item-fields">
+                  <div className="form-field">
+                    <label>模型名称</label>
+                    <span className="field-value">{card.modelName}</span>
+                  </div>
+                  <div className="form-field">
+                    <label>工单优先级</label>
+                    <span className={`priority-badge priority-${getPriorityClass(card.priority)}`}>
+                      {card.priority}
+                    </span>
+                  </div>
+                  <div className="form-field">
+                    <label>当前环节</label>
+                    <span className="field-value">{card.currentStage}</span>
+                  </div>
+                  <div className="form-field">
+                    <label>当前处理人</label>
+                    <span className="field-value">{card.currentHandler}</span>
+                  </div>
+                  <div className="form-field">
+                    <label>创建时间</label>
+                    <span className="field-value">{card.createdTime}</span>
+                  </div>
+                  <div className="form-field">
+                    <label>工单状态</label>
+                    <span className={`status-badge status-${getStatusClass(card.status)}`}>
+                      {card.status}
+                    </span>
+                  </div>
+                </div>
+              </div>
+            ))}
           </div>
         </div>
       </div>
